@@ -15,7 +15,7 @@ public class EmployeeDAO {
 	EmployeeRepository er;
 	
 	/*save employee*/
-	public Employee save( Employee employee ) {
+	public Employee save(Employee employee) {
 		return er.save(employee);
 	}
 	
@@ -26,7 +26,7 @@ public class EmployeeDAO {
 	
 	/*get an employee by id*/
 	public Employee findOne(Long id) {		
-		return er.getOne(id);		
+		return er.getOne(id);
 	}
 	
 	/*delete an employee*/

@@ -15,10 +15,11 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+
 @Entity
 @Table(name="Employees")
 @EntityListeners(AuditingEntityListener.class)
-public class Employee {
+public class Employee{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)//auto_increment
@@ -36,7 +37,7 @@ public class Employee {
 	@Temporal(TemporalType.TIMESTAMP)
 	@LastModifiedDate
 	private Date createdAt;
-
+	
 	public Long getId() {
 		return id;
 	}

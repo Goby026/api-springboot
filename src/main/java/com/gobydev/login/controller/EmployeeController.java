@@ -1,5 +1,6 @@
 package com.gobydev.login.controller;
 
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -20,7 +21,7 @@ import com.gobydev.login.model.Employee;
 
 @RestController
 @RequestMapping("/company")
-public class EmployeeController {
+public class EmployeeController{
 
 	@Autowired
 	EmployeeDAO edao;
@@ -36,45 +37,47 @@ public class EmployeeController {
 	public List<Employee> getAllEmployees() {
 		return edao.findAll();
 	}
-	
-//	get employee by id
+
+//	get employee by id	
 	@GetMapping("/employees/{id}")
-	public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") Long id){
+	public ResponseEntity<Employee> getEmployeeById(@PathVariable(value="id") Long empid){
+		
+		Employee emp=edao.findOne(empid);
+		
+		if(emp==null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(emp);
+		
+	}
+
+//	update an employee by id
+	@PutMapping("/employees/{id}")
+	public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") Long id,
+			@Valid @RequestBody Employee emp) {
 		Employee e = edao.findOne(id);
 		if (e.equals(null)) {
 			return ResponseEntity.notFound().build();
 		}
-		
-		return ResponseEntity.ok().body(e);
-	}
-	
-//	update an employee by id
-	@PutMapping("/employees/{id}")
-	public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") Long id, @Valid @RequestBody Employee emp){
-		Employee e = edao.findOne(id);		
-		if (e.equals(null)) {
-			return ResponseEntity.notFound().build();
-		}
-		
+
 		e.setName(emp.getName());
 		e.setDesignation(emp.getDesignation());
 		e.setExpertise(emp.getExpertise());
-		
+
 		return ResponseEntity.ok().body(edao.save(e));
 	}
-	
+
 //	delete an employee by id
 	@DeleteMapping("/employees/{id}")
-	public ResponseEntity<Employee> deleteEmployee(@PathVariable(value = "id") Long id){
-		Employee e = edao.findOne(id);		
+	public ResponseEntity<Employee> deleteEmployee(@PathVariable(value = "id") Long id) {
+		Employee e = edao.findOne(id);
 		if (e.equals(null)) {
 			return ResponseEntity.notFound().build();
 		}
-		
+
 		edao.delete(e);
-		
+
 		return ResponseEntity.ok().build();
 	}
-	
-	
+
 }
