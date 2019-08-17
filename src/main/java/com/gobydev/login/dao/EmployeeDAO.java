@@ -17,17 +17,17 @@ public class EmployeeDAO {
 	/*save employee*/
 	public Employee save( Employee employee ) {
 		return er.save(employee);
-	}	
+	}
 	
 	/*search all employees*/
 	public List<Employee> findAll(){
 		return er.findAll();
-	}	
+	}
 	
 	/*get an employee by id*/
 	public Employee findOne(Long id) {		
 		return er.getOne(id);		
-	}	
+	}
 	
 	/*delete an employee*/
 	public void delete(Employee employee) {
